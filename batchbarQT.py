@@ -31,10 +31,10 @@ SQL_QUERY_GET_LOC = """SELECT ComponentName, CarrierId
                        WHERE Location=?;"""
 
 CONF_DICT = {
-    "MDB_PATH": r"\\smtdev\STC_DB_SMT\CarrierDB.mdb",
-    "SMB_USERNAME": "Администратор",
-    "SMB_PASSWORD": "R&D_srv",
-    "USER": "ЗАМЕНИТЕ ИМЯ",
+    "MDB_PATH": r"",
+    "SMB_USERNAME": "",
+    "SMB_PASSWORD": "",
+    "USER": "",
     "TURN_SOUND_OFF": True
             }
 GOOD_regex = re.compile(r'^R\d{6}$|^\$LC.{1,}$')
@@ -178,13 +178,17 @@ class create_config():
                 json.dump(CONF_DICT, outfile, ensure_ascii=False, indent=4)
         with open(JSON_CONFIG_FILENAME, 'r', encoding='utf8') as openfile:
             self.config = json.load(openfile)
-        ret = all(self.config.values())
         self.config['USER'] = f'{self.config["USER"]} BB'
         self.mdb_path = self.config["MDB_PATH"]
         self.smb_username = self.config['SMB_USERNAME']
         self.smb_password = self.config['SMB_PASSWORD']
         self.user = self.config['USER']
         self.turn_sound_off = self.config['TURN_SOUND_OFF']
+    def check_conf(self):
+        if not all(self.config.values()):
+            main_window.msgbox_error(title='ОШИБКА', text='Проверьте конфигурационный файл')
+
+
 
 class window1(QWidget):
     locations = {
@@ -354,7 +358,12 @@ class window1(QWidget):
         button = msg.exec()
         return button == QMessageBox.StandardButton.Yes
 
-
+    def msgbox_error(self, title, text):
+        msg = QMessageBox()
+        msg.setWindowTitle(title)
+        msg.setText(text)
+        x = msg.exec()
+        sys.exit()
     def msgbox(self, title, text):
         msg = QMessageBox()
         msg.setWindowTitle(title)
@@ -372,9 +381,10 @@ QMessageBox.Information
 QMessageBox.Question'''
 
 if __name__ == '__main__':
-    config = create_config(JSON_CONFIG_FILENAME, CONF_DICT)
     file = barcode_file(TXT_FILENAME)
     app = QApplication(sys.argv)
+    config = create_config(JSON_CONFIG_FILENAME, CONF_DICT)
     main_window = window1()
+    config.check_conf()
     ret = app.exec()
     sys.exit(ret)
