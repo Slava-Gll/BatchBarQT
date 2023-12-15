@@ -15,11 +15,11 @@ from PySide6.QtGui import (QBrush, QColor, QConicalGradient, QCursor,
     QFont, QFontDatabase, QGradient, QIcon,
     QImage, QKeySequence, QLinearGradient, QPainter,
     QPalette, QPixmap, QRadialGradient, QTransform)
-from PySide6.QtWidgets import (QAbstractItemView, QApplication, QButtonGroup, QCheckBox,
-    QGroupBox, QHBoxLayout, QLabel, QLineEdit,
-    QListView, QListWidget, QListWidgetItem, QPushButton,
-    QRadioButton, QSizePolicy, QSpacerItem, QTabWidget,
-    QTextEdit, QVBoxLayout, QWidget)
+from PySide6.QtWidgets import (QAbstractItemView, QApplication, QButtonGroup, QGroupBox,
+    QHBoxLayout, QLabel, QLineEdit, QListView,
+    QListWidget, QListWidgetItem, QPushButton, QRadioButton,
+    QSizePolicy, QSpacerItem, QTabWidget, QTextEdit,
+    QVBoxLayout, QWidget)
 
 class Ui_Form1(object):
     def setupUi(self, Form1):
@@ -72,9 +72,19 @@ class Ui_Form1(object):
 
         self.verticalLayout_5.addWidget(self.pushButton_save_list)
 
-        self.checkBox = QCheckBox(self.tab_scan)
-        self.checkBox.setObjectName(u"checkBox")
-        self.checkBox.setGeometry(QRect(210, 440, 76, 20))
+        self.textEdit_quantity = QTextEdit(self.tab_scan)
+        self.textEdit_quantity.setObjectName(u"textEdit_quantity")
+        self.textEdit_quantity.setGeometry(QRect(370, 420, 161, 51))
+        font = QFont()
+        font.setPointSize(20)
+        self.textEdit_quantity.setFont(font)
+        self.textEdit_quantity.setReadOnly(True)
+        self.label = QLabel(self.tab_scan)
+        self.label.setObjectName(u"label")
+        self.label.setGeometry(QRect(310, 440, 61, 21))
+        font1 = QFont()
+        font1.setPointSize(12)
+        self.label.setFont(font1)
         self.tabWidget.addTab(self.tab_scan, "")
         self.tab_assign = QWidget()
         self.tab_assign.setObjectName(u"tab_assign")
@@ -263,7 +273,7 @@ class Ui_Form1(object):
         self.lineEdit_scan_input.setPlaceholderText(QCoreApplication.translate("Form1", u"\u0441\u043a\u0430\u043d\u0438\u0440\u043e\u0432\u0430\u0442\u044c \u0441\u044e\u0434\u0430", None))
         self.pushButton_scan_delete.setText(QCoreApplication.translate("Form1", u"\u0423\u0434\u0430\u043b\u0438\u0442\u044c", None))
         self.pushButton_save_list.setText(QCoreApplication.translate("Form1", u"\u0421\u043e\u0445\u0440\u0430\u043d\u0438\u0442\u044c", None))
-        self.checkBox.setText(QCoreApplication.translate("Form1", u"CheckBox", None))
+        self.label.setText(QCoreApplication.translate("Form1", u"\u041a\u043e\u043b-\u0432\u043e:", None))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_scan), QCoreApplication.translate("Form1", u"\u0421\u043a\u0430\u043d\u0438\u0440\u043e\u0432\u0430\u043d\u0438\u0435", None))
         self.label_status.setText(QCoreApplication.translate("Form1", u"\u0421\u0442\u0430\u0442\u0443\u0441:", None))
         self.pushButton_reload.setText(QCoreApplication.translate("Form1", u"\u041e\u0431\u043d\u043e\u0432\u0438\u0442\u044c", None))

@@ -105,17 +105,40 @@
       </item>
      </layout>
     </widget>
-    <widget class="QCheckBox" name="checkBox">
+    <widget class="QTextEdit" name="textEdit_quantity">
      <property name="geometry">
       <rect>
-       <x>210</x>
-       <y>440</y>
-       <width>76</width>
-       <height>20</height>
+       <x>370</x>
+       <y>420</y>
+       <width>161</width>
+       <height>51</height>
       </rect>
      </property>
+     <property name="font">
+      <font>
+       <pointsize>20</pointsize>
+      </font>
+     </property>
+     <property name="readOnly">
+      <bool>true</bool>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label">
+     <property name="geometry">
+      <rect>
+       <x>310</x>
+       <y>440</y>
+       <width>61</width>
+       <height>21</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>12</pointsize>
+      </font>
+     </property>
      <property name="text">
-      <string>CheckBox</string>
+      <string>Кол-во:</string>
      </property>
     </widget>
    </widget>

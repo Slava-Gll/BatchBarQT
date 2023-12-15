@@ -7,7 +7,7 @@
   },
   {
    "optionDest": "filenames",
-   "value": "C:/Users/1/Desktop/qttest/batchbarQT.py"
+   "value": "C:/Users/SLG/Desktop/py/qttest/batchbarQT.py"
   },
   {
    "optionDest": "onefile",
@@ -19,11 +19,7 @@
   },
   {
    "optionDest": "icon_file",
-   "value": "C:/Users/1/Desktop/qttest/icon.ico"
-  },
-  {
-   "optionDest": "ascii",
-   "value": false
+   "value": "C:/Users/SLG/Desktop/py/qttest/icon.ico"
   },
   {
    "optionDest": "clean_build",
@@ -42,10 +38,6 @@
    "value": false
   },
   {
-   "optionDest": "embed_manifest",
-   "value": true
-  },
-  {
    "optionDest": "uac_admin",
    "value": false
   },
@@ -54,28 +46,12 @@
    "value": false
   },
   {
-   "optionDest": "win_private_assemblies",
-   "value": false
-  },
-  {
-   "optionDest": "win_no_prefer_redirects",
+   "optionDest": "argv_emulation",
    "value": false
   },
   {
    "optionDest": "bootloader_ignore_signals",
    "value": false
-  },
-  {
-   "optionDest": "argv_emulation",
-   "value": false
-  },
-  {
-   "optionDest": "datas",
-   "value": "C:/Users/1/Desktop/qttest/alert.wav;."
-  },
-  {
-   "optionDest": "datas",
-   "value": "C:/Users/1/Desktop/qttest/icon.ico;."
   },
   {
    "optionDest": "hiddenimports",
@@ -88,6 +64,14 @@
   {
    "optionDest": "excludes",
    "value": "numpy"
+  },
+  {
+   "optionDest": "datas",
+   "value": "C:/Users/SLG/Desktop/py/qttest/alert.wav;."
+  },
+  {
+   "optionDest": "datas",
+   "value": "C:/Users/SLG/Desktop/py/qttest/icon.ico;."
   }
  ],
  "nonPyinstallerOptions": {
