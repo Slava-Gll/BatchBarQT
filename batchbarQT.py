@@ -23,7 +23,7 @@ time_start = time()
 VER = '2.0'
 JSON_CONFIG_FILENAME = 'conf.json'
 TXT_FILENAME = 'bars.txt'
-FOLDERNAME = 'архив'
+FOLDERNAME = 'archive'
 SQL_QUERY = """UPDATE CarrierTable
            SET Location=?, `Aux 3`=?, LastChanged=?
            WHERE CarrierId=?;"""
@@ -72,6 +72,10 @@ class barcode_file():
         if not os.path.exists(self.foldername):
             os.makedirs(self.foldername)
         self.update()
+        try:
+            self.con, self.cur = self.connect_DB()
+        except Exception as err:
+            print(err)
 
     def write(self, listbar):
         with open(self.filename, 'w') as f:
@@ -105,7 +109,7 @@ class barcode_file():
         if not os.path.exists(self.foldername):
             os.makedirs(self.foldername)
         date_time_executed = datetime.now()
-        file_new = date_time_executed.strftime(f'{os.path.realpath(self.foldername)}/%d.%m.%Y(%HЧ%MМ%SС).txt')
+        file_new = date_time_executed.strftime(f'{os.path.realpath(self.foldername)}/%d.%m.%Y(%HH%MM%SS).txt')
         last_smd = None
         smd_dict = {}
         if mode == 'BATCH':
@@ -138,8 +142,7 @@ class barcode_file():
 
     def browse_loc(self, loc):
         try:
-            conn, cur = self.connect_DB()
-            ret = cur.execute(SQL_QUERY_GET_LOC, loc).fetchall()
+            ret = self.cur.execute(SQL_QUERY_GET_LOC, loc).fetchall()
             txt = ''
             for cell in ret:
                 txt += ' '.join(cell) + '\n'
@@ -149,10 +152,13 @@ class barcode_file():
 
     async def get_smd_count(self):
         try:
-            carrier = self.barcode.strip().replace('R', '')
-            conn, cur = self.connect_DB()
-            ret = cur.execute(SQL_QUERY_CARRIER_COUNT, carrier).fetchall()
-            txt = str(ret[0][0])
+            carrier = self.barcode.strip()
+            if carrier.startswith('R'):
+                carrier = carrier.replace('R', '')
+                ret = self.cur.execute(SQL_QUERY_CARRIER_COUNT, carrier).fetchall()
+                txt = str(ret[0][0])
+            else:
+                txt = '----'
             return(txt)
         except Exception as err:
             print(err)
@@ -272,7 +278,7 @@ class window1(QWidget):
 
     async def get_count(self):
         self.ui.textEdit_quantity.setText(await file.get_smd_count())
-        print('async func')
+        #print('async func')
 
     def eventFilter(self, QObject, event):
         if event.type() == QEvent.Type.WindowActivate:
@@ -351,10 +357,8 @@ class window1(QWidget):
         barcode = self.ui.lineEdit_scan_input.text().strip()
         if GOOD_regex.match(barcode):
             self.ui.listWidget_scan_show.addItems([barcode])
-            if barcode.startswith('R'):
-                print('sync func')
-                file.barcode = barcode
-                self.async_start()
+            file.barcode = barcode
+            self.async_start()
         else:
             print('bad')
             self.effect.play()
@@ -440,10 +444,11 @@ QMessageBox.Question'''
 
 if __name__ == '__main__':
     print('starting...')
-    file = barcode_file(TXT_FILENAME)
     app = QApplication(sys.argv)
     config = create_config(JSON_CONFIG_FILENAME, CONF_DICT)
+    file = barcode_file(TXT_FILENAME)
     main_window = window1()
+
     async_helper = AsyncHelper(main_window, main_window.get_count)
     config.check_conf()
     signal.signal(signal.SIGINT, signal.SIG_DFL)
