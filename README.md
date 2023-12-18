@@ -17,7 +17,7 @@
 
 Перед началом работы необходимо заполнить файл конфигурации `conf.json`, он создается при первом запуске
 Поля:
-- MDB_PATH - путь к БД (\\someserver\DBfld\database.mdb
+- MDB_PATH - путь к БД (\\\\someserver\DBfld\database.mdb
 - SMB_USERNAME - Имя пользователя для входа в SMB (Олег)
 - SMB_PASSWORD - Пароль SMB (password)
 - USER - ФИО, будет записано в поле USER при присвоении (Иванов Иван Иванович)
