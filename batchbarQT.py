@@ -19,6 +19,8 @@ from smbclient import register_session
 
 from main_widget import Ui_Form1
 
+from io import StringIO
+
 time_start = time()
 VER = '2.0'
 JSON_CONFIG_FILENAME = 'conf.json'
@@ -109,7 +111,8 @@ class barcode_file():
         if not os.path.exists(self.foldername):
             os.makedirs(self.foldername)
         date_time_executed = datetime.now()
-        file_new = date_time_executed.strftime(f'{os.path.realpath(self.foldername)}/%d.%m.%Y(%HH%MM%SS).txt')
+        file_new = os.path.realpath(self.foldername)
+        file_new += date_time_executed.strftime(f'/%d.%m.%Y(%HH%MM%SS).txt')
         last_smd = None
         smd_dict = {}
         if mode == 'BATCH':
@@ -159,7 +162,7 @@ class barcode_file():
                 txt = str(ret[0][0])
             else:
                 txt = '----'
-            return(txt)
+            return (txt)
         except Exception as err:
             print(err)
             return 'Ошибка'
@@ -237,6 +240,7 @@ class window1(QWidget):
     loc = None
     mode = None
     start_signal = Signal()
+
     def __init__(self):
         super().__init__()
         self.ui = Ui_Form1()
@@ -270,7 +274,15 @@ class window1(QWidget):
         self.mode_callback()
         self.update_ready_state()
         self.show()
+        self.ui.pushButton_debug.clicked.connect(self.open_debug)
         self.ui.listWidget_scan_show.addItems(file.lines)
+        self.ui.tabWidget.setStyleSheet(
+            "QTabBar::tab::disabled {width: 0; height: 0; margin: 0; padding: 0; border: none;} ")
+        self.ui.tabWidget.setTabEnabled(2, False)
+        self.ui.tabWidget.setCurrentIndex(0)
+        sys.stdout = self.buf_stdout = StringIO()
+        sys.stderr = self.buf_stderr = StringIO()
+        print('redirected')
 
     @Slot()
     def async_start(self):
@@ -278,7 +290,16 @@ class window1(QWidget):
 
     async def get_count(self):
         self.ui.textEdit_quantity.setText(await file.get_smd_count())
-        #print('async func')
+        # print('async func')
+
+    def closeEvent(self, event):
+        super().closeEvent(event)
+    def open_debug(self):
+        self.ui.tabWidget.setTabEnabled(2, True)
+        self.ui.tabWidget.setCurrentIndex(2)
+
+        self.ui.textEdit_debug_stdout.setText(self.buf_stdout.getvalue())
+        self.ui.textEdit_debug_stderr.setText(self.buf_stderr.getvalue())
 
     def eventFilter(self, QObject, event):
         if event.type() == QEvent.Type.WindowActivate:
@@ -423,6 +444,7 @@ class window1(QWidget):
     def error(self, text, e):
         self.msgbox('ОШИБКА', f'{text}\n{e}')
 
+
 class AsyncHelper(QObject):
 
     def __init__(self, worker, entry):
@@ -435,6 +457,7 @@ class AsyncHelper(QObject):
     @Slot()
     def on_worker_started(self):
         asyncio.ensure_future(self.entry())
+
 
 '''
 QMessageBox.Critical

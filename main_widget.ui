@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>587</width>
+    <width>594</width>
     <height>511</height>
    </rect>
   </property>
@@ -20,6 +20,9 @@
    <string>BatchBar</string>
   </property>
   <widget class="QTabWidget" name="tabWidget">
+   <property name="enabled">
+    <bool>true</bool>
+   </property>
    <property name="geometry">
     <rect>
      <x>0</x>
@@ -29,7 +32,7 @@
     </rect>
    </property>
    <property name="currentIndex">
-    <number>0</number>
+    <number>2</number>
    </property>
    <widget class="QWidget" name="tab_scan">
     <attribute name="title">
@@ -409,6 +412,32 @@
      </layout>
     </widget>
    </widget>
+   <widget class="QWidget" name="tab_debug">
+    <property name="enabled">
+     <bool>true</bool>
+    </property>
+    <attribute name="title">
+     <string>Debug</string>
+    </attribute>
+    <widget class="QWidget" name="">
+     <property name="geometry">
+      <rect>
+       <x>0</x>
+       <y>0</y>
+       <width>581</width>
+       <height>481</height>
+      </rect>
+     </property>
+     <layout class="QHBoxLayout" name="horizontalLayout_4">
+      <item>
+       <widget class="QTextEdit" name="textEdit_debug_stdout"/>
+      </item>
+      <item>
+       <widget class="QTextEdit" name="textEdit_debug_stderr"/>
+      </item>
+     </layout>
+    </widget>
+   </widget>
   </widget>
   <widget class="QPushButton" name="pushButton_easter">
    <property name="geometry">
@@ -421,6 +450,19 @@
    </property>
    <property name="text">
     <string>ОЙ, здравствуйте</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="pushButton_debug">
+   <property name="geometry">
+    <rect>
+     <x>650</x>
+     <y>30</y>
+     <width>75</width>
+     <height>24</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Debug</string>
    </property>
   </widget>
  </widget>

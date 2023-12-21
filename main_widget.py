@@ -25,7 +25,7 @@ class Ui_Form1(object):
     def setupUi(self, Form1):
         if not Form1.objectName():
             Form1.setObjectName(u"Form1")
-        Form1.resize(587, 511)
+        Form1.resize(594, 511)
         sizePolicy = QSizePolicy(QSizePolicy.Expanding, QSizePolicy.Preferred)
         sizePolicy.setHorizontalStretch(100)
         sizePolicy.setVerticalStretch(0)
@@ -33,6 +33,7 @@ class Ui_Form1(object):
         Form1.setSizePolicy(sizePolicy)
         self.tabWidget = QTabWidget(Form1)
         self.tabWidget.setObjectName(u"tabWidget")
+        self.tabWidget.setEnabled(True)
         self.tabWidget.setGeometry(QRect(0, 0, 591, 521))
         self.tab_scan = QWidget()
         self.tab_scan.setObjectName(u"tab_scan")
@@ -255,13 +256,36 @@ class Ui_Form1(object):
         self.verticalLayout_4.addWidget(self.groupBox_loc)
 
         self.tabWidget.addTab(self.tab_assign, "")
+        self.tab_debug = QWidget()
+        self.tab_debug.setObjectName(u"tab_debug")
+        self.tab_debug.setEnabled(True)
+        self.widget = QWidget(self.tab_debug)
+        self.widget.setObjectName(u"widget")
+        self.widget.setGeometry(QRect(0, 0, 581, 481))
+        self.horizontalLayout_4 = QHBoxLayout(self.widget)
+        self.horizontalLayout_4.setObjectName(u"horizontalLayout_4")
+        self.horizontalLayout_4.setContentsMargins(0, 0, 0, 0)
+        self.textEdit_debug_stdout = QTextEdit(self.widget)
+        self.textEdit_debug_stdout.setObjectName(u"textEdit_debug_stdout")
+
+        self.horizontalLayout_4.addWidget(self.textEdit_debug_stdout)
+
+        self.textEdit_debug_stderr = QTextEdit(self.widget)
+        self.textEdit_debug_stderr.setObjectName(u"textEdit_debug_stderr")
+
+        self.horizontalLayout_4.addWidget(self.textEdit_debug_stderr)
+
+        self.tabWidget.addTab(self.tab_debug, "")
         self.pushButton_easter = QPushButton(Form1)
         self.pushButton_easter.setObjectName(u"pushButton_easter")
         self.pushButton_easter.setGeometry(QRect(880, 160, 181, 41))
+        self.pushButton_debug = QPushButton(Form1)
+        self.pushButton_debug.setObjectName(u"pushButton_debug")
+        self.pushButton_debug.setGeometry(QRect(650, 30, 75, 24))
 
         self.retranslateUi(Form1)
 
-        self.tabWidget.setCurrentIndex(0)
+        self.tabWidget.setCurrentIndex(2)
         self.pushButton_reload.setDefault(False)
 
 
@@ -294,6 +318,8 @@ class Ui_Form1(object):
         self.lineEdit_custom_loc.setPlaceholderText(QCoreApplication.translate("Form1", u"\u041b\u043e\u043a\u0430\u0446\u0438\u044f", None))
         self.pushButton_show_loc.setText(QCoreApplication.translate("Form1", u"\u0412\u044b\u0432\u0435\u0441\u0442\u0438 \u0441\u043e\u0434\u0435\u0440\u0436\u0438\u043c\u043e\u0435 \u043b\u043e\u043a\u0430\u0446\u0438\u0438", None))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_assign), QCoreApplication.translate("Form1", u"\u041f\u0440\u0438\u0441\u0432\u043e\u0435\u043d\u0438\u0435", None))
+        self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_debug), QCoreApplication.translate("Form1", u"Debug", None))
         self.pushButton_easter.setText(QCoreApplication.translate("Form1", u"\u041e\u0419, \u0437\u0434\u0440\u0430\u0432\u0441\u0442\u0432\u0443\u0439\u0442\u0435", None))
+        self.pushButton_debug.setText(QCoreApplication.translate("Form1", u"Debug", None))
     # retranslateUi
 
