@@ -29,6 +29,12 @@ FOLDERNAME = 'archive'
 SQL_QUERY = """UPDATE CarrierTable
            SET Location=?, `Aux 3`=?, LastChanged=?
            WHERE CarrierId=?;"""
+
+SQL_QUERY_SET_LOST = """UPDATE CarrierTable
+           SET Location=?, `Aux 3`=?, LastChanged=?
+           WHERE Location=?;"""
+BAD_LOC = 'LOST'
+
 SQL_QUERY_GET_LOC = """SELECT ComponentName, CarrierId
                        FROM CarrierTable
                        WHERE Location=?;"""
@@ -44,7 +50,7 @@ CONF_DICT = {
     "USER": "",
     "TURN_SOUND_OFF": True
 }
-GOOD_regex = re.compile(r'^R\d{6}$|^\$LC.{1,}$')
+GOOD_regex = re.compile(r'^R\d{6}$|^\$LC.+$')
 ALERT_FILENAME = "alert.wav"
 
 
@@ -168,7 +174,17 @@ class barcode_file():
             return 'Ошибка'
             pass
             # main_window.error('Ошибка БД', e)
-
+    def assign_to_lost(self, from_loc):
+        conn, cur = self.connect_DB()
+        date_time_executed = datetime.now()
+        try:
+            conn.autocommit = False
+            cur.execute(SQL_QUERY_SET_LOST, BAD_LOC, config.user, date_time_executed, from_loc)
+        except pyodbc.DatabaseError as e:
+            main_window.error('Ошибка присвоения к БД', e)
+            cur.rollback()
+        else:
+            cur.commit()
     def process(self):
         begin = time()
         date_time_executed = datetime.now()
@@ -230,7 +246,8 @@ class window1(QWidget):
     locations = {
         -2: 'INTERVAL',
         -3: 'STANOK',
-        -4: 'SOBRANO_V_STANOK'
+        -4: 'SOBRANO_V_STANOK',
+        -5: 'LOST'
     }
     modes = {
         -2: 'BATCH',
@@ -280,6 +297,10 @@ class window1(QWidget):
             "QTabBar::tab::disabled {width: 0; height: 0; margin: 0; padding: 0; border: none;} ")
         self.ui.tabWidget.setTabEnabled(2, False)
         self.ui.tabWidget.setCurrentIndex(0)
+        self.ui.pushButton_clear_location.setHidden(True)
+        self.ui.radioButton_loc_lost.setHidden(True)
+        self.ui.checkBox_dangerous.clicked.connect(self.danger_switch)
+        self.ui.pushButton_clear_location.clicked.connect(self.assign_lost)
         sys.stdout = self.buf_stdout = StringIO()
         sys.stderr = self.buf_stderr = StringIO()
         print('redirected')
@@ -291,9 +312,20 @@ class window1(QWidget):
     async def get_count(self):
         self.ui.textEdit_quantity.setText(await file.get_smd_count())
         # print('async func')
+    def assign_lost(self):
+        file.assign_to_lost(self.loc)
+        self.show_loc()
+    def danger_switch(self):
+        if self.ui.checkBox_dangerous.checkState() == Qt.Checked:
+            self.ui.pushButton_clear_location.setHidden(False)
+            self.ui.radioButton_loc_lost.setHidden(False)
+        else:
+            self.ui.pushButton_clear_location.setHidden(True)
+            self.ui.radioButton_loc_lost.setHidden(True)
 
     def closeEvent(self, event):
         super().closeEvent(event)
+
     def open_debug(self):
         self.ui.tabWidget.setTabEnabled(2, True)
         self.ui.tabWidget.setCurrentIndex(2)
@@ -305,7 +337,7 @@ class window1(QWidget):
         if event.type() == QEvent.Type.WindowActivate:
             self.setStyleSheet("* {background : #f0f0f0;}")
             vol_up()
-            self.change_layout_EN()
+            self.change_layout_en()
         elif event.type() == QEvent.Type.WindowDeactivate:
             self.setStyleSheet("* {background : #ffb7b7;}")
             if config.turn_sound_off:
@@ -332,8 +364,10 @@ class window1(QWidget):
         self.ui.textEdit_file.setText("\n".join(file.lines))
         if self.loc:
             self.ui.pushButton_show_loc.setEnabled(True)
+            self.ui.pushButton_clear_location.setEnabled(True)
         else:
             self.ui.pushButton_show_loc.setEnabled(False)
+            self.ui.pushButton_clear_location.setEnabled(False)
         if file.len_good and self.loc:
             self.ui.pushButton_start.setEnabled(True)
         else:
@@ -343,14 +377,17 @@ class window1(QWidget):
         file.update()
         self.update_ready_state()
 
-    def easter(self):
+    @staticmethod
+    def easter():
         config.turn_sound_off = False
         os.startfile('https://www.youtube.com/watch?v=dQw4w9WgXcQ')
 
-    def change_layout_EN(self):
+    @staticmethod
+    def change_layout_en():
         py_win_keyboard_layout.change_foreground_window_keyboard_layout(0x04090409)
 
-    def open_archive(self):
+    @staticmethod
+    def open_archive():
         os.startfile(os.path.realpath(file.foldername))
 
     def mode_callback(self):
@@ -369,9 +406,10 @@ class window1(QWidget):
         self.ui.tabWidget.setCurrentIndex(1)
 
     def delete_rows(self):
-        listItems = self.ui.listWidget_scan_show.selectedItems()
-        if not listItems: return
-        for item in listItems:
+        list_items = self.ui.listWidget_scan_show.selectedItems()
+        if not list_items:
+            return
+        for item in list_items:
             self.ui.listWidget_scan_show.takeItem(self.ui.listWidget_scan_show.row(item))
 
     def barcodes_append(self):
@@ -418,7 +456,8 @@ class window1(QWidget):
             self.custom_loc_callback()
         self.update_ready_state()
 
-    def msg_ask_yesno(self, text='', title=''):
+    @staticmethod
+    def msg_ask_yesno(text='', title=''):
         msg = QMessageBox()
         msg.setWindowTitle(title)
         msg.setText(text)
@@ -428,18 +467,20 @@ class window1(QWidget):
         button = msg.exec()
         return button == QMessageBox.StandardButton.Yes
 
-    def msgbox_error(self, title, text):
+    @staticmethod
+    def msgbox_error(title, text):
         msg = QMessageBox()
         msg.setWindowTitle(title)
         msg.setText(text)
-        x = msg.exec()
+        _ = msg.exec()
         sys.exit()
 
-    def msgbox(self, title, text):
+    @staticmethod
+    def msgbox(title, text):
         msg = QMessageBox()
         msg.setWindowTitle(title)
         msg.setText(text)
-        x = msg.exec()
+        _ = msg.exec()
 
     def error(self, text, e):
         self.msgbox('ОШИБКА', f'{text}\n{e}')

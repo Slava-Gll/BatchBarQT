@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>594</width>
-    <height>511</height>
+    <height>575</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -28,11 +28,11 @@
      <x>0</x>
      <y>0</y>
      <width>591</width>
-     <height>521</height>
+     <height>571</height>
     </rect>
    </property>
    <property name="currentIndex">
-    <number>2</number>
+    <number>1</number>
    </property>
    <widget class="QWidget" name="tab_scan">
     <attribute name="title">
@@ -155,7 +155,7 @@
        <x>280</x>
        <y>0</y>
        <width>301</width>
-       <height>481</height>
+       <height>511</height>
       </rect>
      </property>
      <property name="readOnly">
@@ -166,7 +166,7 @@
      <property name="geometry">
       <rect>
        <x>10</x>
-       <y>320</y>
+       <y>380</y>
        <width>241</width>
        <height>151</height>
       </rect>
@@ -264,7 +264,7 @@
        <x>10</x>
        <y>0</y>
        <width>269</width>
-       <height>308</height>
+       <height>364</height>
       </rect>
      </property>
      <layout class="QVBoxLayout" name="verticalLayout_4">
@@ -368,6 +368,16 @@
              </widget>
             </item>
             <item>
+             <widget class="QRadioButton" name="radioButton_loc_lost">
+              <property name="text">
+               <string>LOST</string>
+              </property>
+              <attribute name="buttonGroup">
+               <string notr="true">loc_group</string>
+              </attribute>
+             </widget>
+            </item>
+            <item>
              <widget class="QRadioButton" name="radioButton_loc_other">
               <property name="text">
                <string>Другая локация</string>
@@ -406,10 +416,63 @@
            </property>
           </widget>
          </item>
+         <item>
+          <widget class="QPushButton" name="pushButton_clear_location">
+           <property name="enabled">
+            <bool>true</bool>
+           </property>
+           <property name="palette">
+            <palette>
+             <active>
+              <colorrole role="ButtonText">
+               <brush brushstyle="SolidPattern">
+                <color alpha="255">
+                 <red>255</red>
+                 <green>0</green>
+                 <blue>0</blue>
+                </color>
+               </brush>
+              </colorrole>
+             </active>
+             <inactive>
+              <colorrole role="ButtonText">
+               <brush brushstyle="SolidPattern">
+                <color alpha="255">
+                 <red>255</red>
+                 <green>0</green>
+                 <blue>0</blue>
+                </color>
+               </brush>
+              </colorrole>
+             </inactive>
+             <disabled/>
+            </palette>
+           </property>
+           <property name="text">
+            <string>Очистить локацию</string>
+           </property>
+           <property name="checkable">
+            <bool>false</bool>
+           </property>
+          </widget>
+         </item>
         </layout>
        </widget>
       </item>
      </layout>
+    </widget>
+    <widget class="QCheckBox" name="checkBox_dangerous">
+     <property name="geometry">
+      <rect>
+       <x>450</x>
+       <y>520</y>
+       <width>131</width>
+       <height>20</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Опасные функции</string>
+     </property>
     </widget>
    </widget>
    <widget class="QWidget" name="tab_debug">
@@ -419,7 +482,7 @@
     <attribute name="title">
      <string>Debug</string>
     </attribute>
-    <widget class="QWidget" name="">
+    <widget class="QWidget" name="layoutWidget">
      <property name="geometry">
       <rect>
        <x>0</x>

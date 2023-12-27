@@ -15,17 +15,17 @@ from PySide6.QtGui import (QBrush, QColor, QConicalGradient, QCursor,
     QFont, QFontDatabase, QGradient, QIcon,
     QImage, QKeySequence, QLinearGradient, QPainter,
     QPalette, QPixmap, QRadialGradient, QTransform)
-from PySide6.QtWidgets import (QAbstractItemView, QApplication, QButtonGroup, QGroupBox,
-    QHBoxLayout, QLabel, QLineEdit, QListView,
-    QListWidget, QListWidgetItem, QPushButton, QRadioButton,
-    QSizePolicy, QSpacerItem, QTabWidget, QTextEdit,
-    QVBoxLayout, QWidget)
+from PySide6.QtWidgets import (QAbstractItemView, QApplication, QButtonGroup, QCheckBox,
+    QGroupBox, QHBoxLayout, QLabel, QLineEdit,
+    QListView, QListWidget, QListWidgetItem, QPushButton,
+    QRadioButton, QSizePolicy, QSpacerItem, QTabWidget,
+    QTextEdit, QVBoxLayout, QWidget)
 
 class Ui_Form1(object):
     def setupUi(self, Form1):
         if not Form1.objectName():
             Form1.setObjectName(u"Form1")
-        Form1.resize(594, 511)
+        Form1.resize(594, 575)
         sizePolicy = QSizePolicy(QSizePolicy.Expanding, QSizePolicy.Preferred)
         sizePolicy.setHorizontalStretch(100)
         sizePolicy.setVerticalStretch(0)
@@ -34,7 +34,7 @@ class Ui_Form1(object):
         self.tabWidget = QTabWidget(Form1)
         self.tabWidget.setObjectName(u"tabWidget")
         self.tabWidget.setEnabled(True)
-        self.tabWidget.setGeometry(QRect(0, 0, 591, 521))
+        self.tabWidget.setGeometry(QRect(0, 0, 591, 571))
         self.tab_scan = QWidget()
         self.tab_scan.setObjectName(u"tab_scan")
         self.layoutWidget = QWidget(self.tab_scan)
@@ -91,11 +91,11 @@ class Ui_Form1(object):
         self.tab_assign.setObjectName(u"tab_assign")
         self.textEdit_file = QTextEdit(self.tab_assign)
         self.textEdit_file.setObjectName(u"textEdit_file")
-        self.textEdit_file.setGeometry(QRect(280, 0, 301, 481))
+        self.textEdit_file.setGeometry(QRect(280, 0, 301, 511))
         self.textEdit_file.setReadOnly(True)
         self.layoutWidget1 = QWidget(self.tab_assign)
         self.layoutWidget1.setObjectName(u"layoutWidget1")
-        self.layoutWidget1.setGeometry(QRect(10, 320, 241, 151))
+        self.layoutWidget1.setGeometry(QRect(10, 380, 241, 151))
         self.verticalLayout_3 = QVBoxLayout(self.layoutWidget1)
         self.verticalLayout_3.setObjectName(u"verticalLayout_3")
         self.verticalLayout_3.setContentsMargins(0, 0, 0, 0)
@@ -165,7 +165,7 @@ class Ui_Form1(object):
 
         self.layoutWidget2 = QWidget(self.tab_assign)
         self.layoutWidget2.setObjectName(u"layoutWidget2")
-        self.layoutWidget2.setGeometry(QRect(10, 0, 269, 308))
+        self.layoutWidget2.setGeometry(QRect(10, 0, 269, 364))
         self.verticalLayout_4 = QVBoxLayout(self.layoutWidget2)
         self.verticalLayout_4.setObjectName(u"verticalLayout_4")
         self.verticalLayout_4.setContentsMargins(0, 0, 0, 0)
@@ -226,6 +226,12 @@ class Ui_Form1(object):
 
         self.verticalLayout_2.addWidget(self.radioButton_loc_sobrano)
 
+        self.radioButton_loc_lost = QRadioButton(self.verticalGroupBox)
+        self.loc_group.addButton(self.radioButton_loc_lost)
+        self.radioButton_loc_lost.setObjectName(u"radioButton_loc_lost")
+
+        self.verticalLayout_2.addWidget(self.radioButton_loc_lost)
+
         self.radioButton_loc_other = QRadioButton(self.verticalGroupBox)
         self.loc_group.addButton(self.radioButton_loc_other)
         self.radioButton_loc_other.setObjectName(u"radioButton_loc_other")
@@ -252,25 +258,41 @@ class Ui_Form1(object):
 
         self.verticalLayout_6.addWidget(self.pushButton_show_loc)
 
+        self.pushButton_clear_location = QPushButton(self.groupBox_loc)
+        self.pushButton_clear_location.setObjectName(u"pushButton_clear_location")
+        self.pushButton_clear_location.setEnabled(True)
+        palette = QPalette()
+        brush = QBrush(QColor(255, 0, 0, 255))
+        brush.setStyle(Qt.SolidPattern)
+        palette.setBrush(QPalette.Active, QPalette.ButtonText, brush)
+        palette.setBrush(QPalette.Inactive, QPalette.ButtonText, brush)
+        self.pushButton_clear_location.setPalette(palette)
+        self.pushButton_clear_location.setCheckable(False)
+
+        self.verticalLayout_6.addWidget(self.pushButton_clear_location)
+
 
         self.verticalLayout_4.addWidget(self.groupBox_loc)
 
+        self.checkBox_dangerous = QCheckBox(self.tab_assign)
+        self.checkBox_dangerous.setObjectName(u"checkBox_dangerous")
+        self.checkBox_dangerous.setGeometry(QRect(450, 520, 131, 20))
         self.tabWidget.addTab(self.tab_assign, "")
         self.tab_debug = QWidget()
         self.tab_debug.setObjectName(u"tab_debug")
         self.tab_debug.setEnabled(True)
-        self.widget = QWidget(self.tab_debug)
-        self.widget.setObjectName(u"widget")
-        self.widget.setGeometry(QRect(0, 0, 581, 481))
-        self.horizontalLayout_4 = QHBoxLayout(self.widget)
+        self.layoutWidget3 = QWidget(self.tab_debug)
+        self.layoutWidget3.setObjectName(u"layoutWidget3")
+        self.layoutWidget3.setGeometry(QRect(0, 0, 581, 481))
+        self.horizontalLayout_4 = QHBoxLayout(self.layoutWidget3)
         self.horizontalLayout_4.setObjectName(u"horizontalLayout_4")
         self.horizontalLayout_4.setContentsMargins(0, 0, 0, 0)
-        self.textEdit_debug_stdout = QTextEdit(self.widget)
+        self.textEdit_debug_stdout = QTextEdit(self.layoutWidget3)
         self.textEdit_debug_stdout.setObjectName(u"textEdit_debug_stdout")
 
         self.horizontalLayout_4.addWidget(self.textEdit_debug_stdout)
 
-        self.textEdit_debug_stderr = QTextEdit(self.widget)
+        self.textEdit_debug_stderr = QTextEdit(self.layoutWidget3)
         self.textEdit_debug_stderr.setObjectName(u"textEdit_debug_stderr")
 
         self.horizontalLayout_4.addWidget(self.textEdit_debug_stderr)
@@ -285,7 +307,7 @@ class Ui_Form1(object):
 
         self.retranslateUi(Form1)
 
-        self.tabWidget.setCurrentIndex(2)
+        self.tabWidget.setCurrentIndex(1)
         self.pushButton_reload.setDefault(False)
 
 
@@ -314,9 +336,12 @@ class Ui_Form1(object):
         self.radioButton_loc_interval.setText(QCoreApplication.translate("Form1", u"INTERVAL", None))
         self.radioButton_loc_stanok.setText(QCoreApplication.translate("Form1", u"STANOK", None))
         self.radioButton_loc_sobrano.setText(QCoreApplication.translate("Form1", u"SOBRANO_V_STANOK", None))
+        self.radioButton_loc_lost.setText(QCoreApplication.translate("Form1", u"LOST", None))
         self.radioButton_loc_other.setText(QCoreApplication.translate("Form1", u"\u0414\u0440\u0443\u0433\u0430\u044f \u043b\u043e\u043a\u0430\u0446\u0438\u044f", None))
         self.lineEdit_custom_loc.setPlaceholderText(QCoreApplication.translate("Form1", u"\u041b\u043e\u043a\u0430\u0446\u0438\u044f", None))
         self.pushButton_show_loc.setText(QCoreApplication.translate("Form1", u"\u0412\u044b\u0432\u0435\u0441\u0442\u0438 \u0441\u043e\u0434\u0435\u0440\u0436\u0438\u043c\u043e\u0435 \u043b\u043e\u043a\u0430\u0446\u0438\u0438", None))
+        self.pushButton_clear_location.setText(QCoreApplication.translate("Form1", u"\u041e\u0447\u0438\u0441\u0442\u0438\u0442\u044c \u043b\u043e\u043a\u0430\u0446\u0438\u044e", None))
+        self.checkBox_dangerous.setText(QCoreApplication.translate("Form1", u"\u041e\u043f\u0430\u0441\u043d\u044b\u0435 \u0444\u0443\u043d\u043a\u0446\u0438\u0438", None))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_assign), QCoreApplication.translate("Form1", u"\u041f\u0440\u0438\u0441\u0432\u043e\u0435\u043d\u0438\u0435", None))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_debug), QCoreApplication.translate("Form1", u"Debug", None))
         self.pushButton_easter.setText(QCoreApplication.translate("Form1", u"\u041e\u0419, \u0437\u0434\u0440\u0430\u0432\u0441\u0442\u0432\u0443\u0439\u0442\u0435", None))
