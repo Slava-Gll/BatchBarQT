@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>594</width>
-    <height>575</height>
+    <height>590</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -28,7 +28,7 @@
      <x>0</x>
      <y>0</y>
      <width>591</width>
-     <height>571</height>
+     <height>591</height>
     </rect>
    </property>
    <property name="currentIndex">
@@ -155,7 +155,7 @@
        <x>280</x>
        <y>0</y>
        <width>301</width>
-       <height>511</height>
+       <height>531</height>
       </rect>
      </property>
      <property name="readOnly">
@@ -166,7 +166,7 @@
      <property name="geometry">
       <rect>
        <x>10</x>
-       <y>380</y>
+       <y>410</y>
        <width>241</width>
        <height>151</height>
       </rect>
@@ -264,7 +264,7 @@
        <x>10</x>
        <y>0</y>
        <width>269</width>
-       <height>364</height>
+       <height>392</height>
       </rect>
      </property>
      <layout class="QVBoxLayout" name="verticalLayout_4">
@@ -417,43 +417,71 @@
           </widget>
          </item>
          <item>
-          <widget class="QPushButton" name="pushButton_clear_location">
-           <property name="enabled">
-            <bool>true</bool>
-           </property>
-           <property name="palette">
-            <palette>
-             <active>
-              <colorrole role="ButtonText">
-               <brush brushstyle="SolidPattern">
-                <color alpha="255">
-                 <red>255</red>
-                 <green>0</green>
-                 <blue>0</blue>
-                </color>
-               </brush>
-              </colorrole>
-             </active>
-             <inactive>
-              <colorrole role="ButtonText">
-               <brush brushstyle="SolidPattern">
-                <color alpha="255">
-                 <red>255</red>
-                 <green>0</green>
-                 <blue>0</blue>
-                </color>
-               </brush>
-              </colorrole>
-             </inactive>
-             <disabled/>
-            </palette>
-           </property>
-           <property name="text">
-            <string>Очистить локацию</string>
-           </property>
-           <property name="checkable">
-            <bool>false</bool>
-           </property>
+          <widget class="QWidget" name="danger_group" native="true">
+           <layout class="QHBoxLayout" name="horizontalLayout_dangerous">
+            <item>
+             <widget class="QPushButton" name="pushButton_clear_location">
+              <property name="enabled">
+               <bool>true</bool>
+              </property>
+              <property name="palette">
+               <palette>
+                <active>
+                 <colorrole role="ButtonText">
+                  <brush brushstyle="SolidPattern">
+                   <color alpha="255">
+                    <red>255</red>
+                    <green>0</green>
+                    <blue>0</blue>
+                   </color>
+                  </brush>
+                 </colorrole>
+                </active>
+                <inactive>
+                 <colorrole role="ButtonText">
+                  <brush brushstyle="SolidPattern">
+                   <color alpha="255">
+                    <red>255</red>
+                    <green>0</green>
+                    <blue>0</blue>
+                   </color>
+                  </brush>
+                 </colorrole>
+                </inactive>
+                <disabled/>
+               </palette>
+              </property>
+              <property name="text">
+               <string>Переметить в</string>
+              </property>
+              <property name="checkable">
+               <bool>false</bool>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QLabel" name="label_2">
+              <property name="font">
+               <font>
+                <pointsize>12</pointsize>
+               </font>
+              </property>
+              <property name="text">
+               <string>:</string>
+              </property>
+              <property name="textFormat">
+               <enum>Qt::PlainText</enum>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QLineEdit" name="lineEdit">
+              <property name="text">
+               <string>LOST</string>
+              </property>
+             </widget>
+            </item>
+           </layout>
           </widget>
          </item>
         </layout>
@@ -465,7 +493,7 @@
      <property name="geometry">
       <rect>
        <x>450</x>
-       <y>520</y>
+       <y>540</y>
        <width>131</width>
        <height>20</height>
       </rect>

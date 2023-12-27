@@ -297,7 +297,7 @@ class window1(QWidget):
             "QTabBar::tab::disabled {width: 0; height: 0; margin: 0; padding: 0; border: none;} ")
         self.ui.tabWidget.setTabEnabled(2, False)
         self.ui.tabWidget.setCurrentIndex(0)
-        self.ui.pushButton_clear_location.setHidden(True)
+        self.ui.danger_group.setHidden(True)
         self.ui.radioButton_loc_lost.setHidden(True)
         self.ui.checkBox_dangerous.clicked.connect(self.danger_switch)
         self.ui.pushButton_clear_location.clicked.connect(self.assign_lost)
@@ -315,12 +315,13 @@ class window1(QWidget):
     def assign_lost(self):
         file.assign_to_lost(self.loc)
         self.show_loc()
+        self.ui.lineEdit_custom_loc.setText('')
     def danger_switch(self):
         if self.ui.checkBox_dangerous.checkState() == Qt.Checked:
-            self.ui.pushButton_clear_location.setHidden(False)
+            self.ui.danger_group.setHidden(False)
             self.ui.radioButton_loc_lost.setHidden(False)
         else:
-            self.ui.pushButton_clear_location.setHidden(True)
+            self.ui.danger_group.setHidden(True)
             self.ui.radioButton_loc_lost.setHidden(True)
 
     def closeEvent(self, event):
