@@ -205,7 +205,7 @@ class barcode_file():
                 else:
                     bad_cnt += 1
                     bad_carriers.append(splitted[0])
-        except pyodbc.DatabaseError as e:
+        except Exception as e:
             main_window.error('Ошибка присвоения к БД', e)
             cur.rollback()
         else:
