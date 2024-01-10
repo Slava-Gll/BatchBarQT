@@ -166,11 +166,14 @@ class barcode_file():
                 carrier = carrier.replace('R', '')
                 ret = self.cur.execute(SQL_QUERY_CARRIER_COUNT, carrier).fetchall()
                 txt = str(ret[0][0])
+                main_window.ui.textEdit_quantity.setStyleSheet("QTextEdit {background : ##f0f0f0;}")
             else:
                 txt = '----'
             return (txt)
         except Exception as err:
             print(err)
+            main_window.ui.textEdit_quantity.setStyleSheet("QTextEdit {background : #ff0022;}")
+            main_window.effect.play()
             return 'Ошибка'
             pass
             # main_window.error('Ошибка БД', e)
