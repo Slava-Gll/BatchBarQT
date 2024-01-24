@@ -177,12 +177,12 @@ class barcode_file():
             return 'Ошибка'
             pass
             # main_window.error('Ошибка БД', e)
-    def assign_to_lost(self, from_loc):
+    def assign_loc_to_another(self, from_loc, to_loc):
         conn, cur = self.connect_DB()
         date_time_executed = datetime.now()
         try:
             conn.autocommit = False
-            cur.execute(SQL_QUERY_SET_LOST, BAD_LOC, config.user, date_time_executed, from_loc)
+            cur.execute(SQL_QUERY_SET_LOST, to_loc, config.user, date_time_executed, from_loc)
         except pyodbc.DatabaseError as e:
             main_window.error('Ошибка присвоения к БД', e)
             cur.rollback()
@@ -303,7 +303,7 @@ class window1(QWidget):
         self.ui.danger_group.setHidden(True)
         self.ui.radioButton_loc_lost.setHidden(True)
         self.ui.checkBox_dangerous.clicked.connect(self.danger_switch)
-        self.ui.pushButton_clear_location.clicked.connect(self.assign_lost)
+        self.ui.pushButton_clear_location.clicked.connect(self.move_loc_to_loc)
         sys.stdout = self.buf_stdout = StringIO()
         sys.stderr = self.buf_stderr = StringIO()
         print('redirected')
@@ -315,8 +315,8 @@ class window1(QWidget):
     async def get_count(self):
         self.ui.textEdit_quantity.setText(await file.get_smd_count())
         # print('async func')
-    def assign_lost(self):
-        file.assign_to_lost(self.loc)
+    def move_loc_to_loc(self):
+        file.assign_loc_to_another(self.loc, self.ui.lineEdit_move_to_loc.text().strip())
         self.show_loc()
         self.ui.lineEdit_custom_loc.setText('')
     def danger_switch(self):

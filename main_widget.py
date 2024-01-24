@@ -282,10 +282,10 @@ class Ui_Form1(object):
 
         self.horizontalLayout_dangerous.addWidget(self.label_2)
 
-        self.lineEdit = QLineEdit(self.danger_group)
-        self.lineEdit.setObjectName(u"lineEdit")
+        self.lineEdit_move_to_loc = QLineEdit(self.danger_group)
+        self.lineEdit_move_to_loc.setObjectName(u"lineEdit_move_to_loc")
 
-        self.horizontalLayout_dangerous.addWidget(self.lineEdit)
+        self.horizontalLayout_dangerous.addWidget(self.lineEdit_move_to_loc)
 
 
         self.verticalLayout_6.addWidget(self.danger_group)
@@ -361,7 +361,7 @@ class Ui_Form1(object):
         self.pushButton_show_loc.setText(QCoreApplication.translate("Form1", u"\u0412\u044b\u0432\u0435\u0441\u0442\u0438 \u0441\u043e\u0434\u0435\u0440\u0436\u0438\u043c\u043e\u0435 \u043b\u043e\u043a\u0430\u0446\u0438\u0438", None))
         self.pushButton_clear_location.setText(QCoreApplication.translate("Form1", u"\u041f\u0435\u0440\u0435\u043c\u0435\u0442\u0438\u0442\u044c \u0432", None))
         self.label_2.setText(QCoreApplication.translate("Form1", u":", None))
-        self.lineEdit.setText(QCoreApplication.translate("Form1", u"LOST", None))
+        self.lineEdit_move_to_loc.setText(QCoreApplication.translate("Form1", u"LOST", None))
         self.checkBox_dangerous.setText(QCoreApplication.translate("Form1", u"\u041e\u043f\u0430\u0441\u043d\u044b\u0435 \u0444\u0443\u043d\u043a\u0446\u0438\u0438", None))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_assign), QCoreApplication.translate("Form1", u"\u041f\u0440\u0438\u0441\u0432\u043e\u0435\u043d\u0438\u0435", None))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_debug), QCoreApplication.translate("Form1", u"Debug", None))
