@@ -81,7 +81,8 @@ class barcode_file():
             os.makedirs(self.foldername)
         self.update()
         try:
-            self.con, self.cur = self.connect_DB()
+            self.conn, self.cur = self.connect_DB()
+            # self.conn.close()
         except Exception as err:
             print(err)
 
@@ -188,6 +189,7 @@ class barcode_file():
             cur.rollback()
         else:
             cur.commit()
+        conn.close()
     def process(self):
         begin = time()
         date_time_executed = datetime.now()
@@ -222,6 +224,8 @@ class barcode_file():
                 main_window.ui.textEdit_file.setText('CARRIERS без локации:\n' + '\n'.join(bad_carriers))
         finally:
             conn.autocommit = True
+
+        conn.close()
 
 
 class create_config():
@@ -266,6 +270,7 @@ class window1(QWidget):
         self.ui = Ui_Form1()
         self.ui.setupUi(self)
         self.effect = QSoundEffect()
+        self.loc_move_to = ''
         self.effect.setSource(QUrl.fromLocalFile(resource_path(ALERT_FILENAME)))
         # self.effect.setLoopCount(-2)
         self.ui.pushButton_open_archive.clicked.connect(self.open_archive)
@@ -278,19 +283,23 @@ class window1(QWidget):
         self.ui.pushButton_reload.clicked.connect(self.update_file)  # кнопка обновить
         self.ui.loc_group.buttonClicked.connect(self.loc_callback)  # вызов по радио локаций
         self.ui.mode_group.buttonClicked.connect(self.mode_callback)  # вызов по радио режимов
-        self.ui.lineEdit_custom_loc.textChanged.connect(
+        self.ui.lineEdit_custom_loc.textEdited.connect(
             self.custom_loc_callback)  # вызов по изменению кастомной локации
         self.ui.pushButton_start.clicked.connect(file.process)
         self.ui.pushButton_clear_file.clicked.connect(file.clear)
         self.ui.lineEdit_custom_loc.returnPressed.connect(self.sel_all)
+        self.ui.lineEdit_move_to_loc.returnPressed.connect(self.sel_move)
         self.ui.lineEdit_custom_loc.setHidden(True)  # скрыть текстбокс локации
+        self.ui.lineEdit_move_to_loc.textEdited.connect(self.move_loc_callback)
         self.ui.pushButton_easter.clicked.connect(self.easter)
         self.ui.pushButton_show_loc.clicked.connect(self.show_loc)
+        self.ui.pushButton_move_sobrano.clicked.connect(self.move_sobrano_to_stanok)
         QApplication.instance().focusChanged.connect(self.on_focusChanged)
         self.setWindowTitle(f'BatchBar {config.user}')
         self.installEventFilter(self)
         self.setWindowIcon(QIcon(resource_path('icon.ico')))
         self.loc_callback()  # присвоить стартовую локацию
+        self.move_loc_callback()
         self.mode_callback()
         self.update_ready_state()
         self.show()
@@ -303,7 +312,7 @@ class window1(QWidget):
         self.ui.danger_group.setHidden(True)
         self.ui.radioButton_loc_lost.setHidden(True)
         self.ui.checkBox_dangerous.clicked.connect(self.danger_switch)
-        self.ui.pushButton_clear_location.clicked.connect(self.move_loc_to_loc)
+        self.ui.pushButton_move_location.clicked.connect(self.move_loc_to_loc)
         sys.stdout = self.buf_stdout = StringIO()
         sys.stderr = self.buf_stderr = StringIO()
         print('redirected')
@@ -315,6 +324,9 @@ class window1(QWidget):
     async def get_count(self):
         self.ui.textEdit_quantity.setText(await file.get_smd_count())
         # print('async func')
+    def move_sobrano_to_stanok(self):
+        file.assign_loc_to_another('SOBRANO_V_STANOK', 'STANOK')
+        self.show_loc()
     def move_loc_to_loc(self):
         file.assign_loc_to_another(self.loc, self.ui.lineEdit_move_to_loc.text().strip())
         self.show_loc()
@@ -368,14 +380,13 @@ class window1(QWidget):
         self.ui.textEdit_file.setText("\n".join(file.lines))
         if self.loc:
             self.ui.pushButton_show_loc.setEnabled(True)
-            self.ui.pushButton_clear_location.setEnabled(True)
         else:
             self.ui.pushButton_show_loc.setEnabled(False)
-            self.ui.pushButton_clear_location.setEnabled(False)
         if file.len_good and self.loc:
             self.ui.pushButton_start.setEnabled(True)
         else:
             self.ui.pushButton_start.setEnabled(False)
+        self.update_move_button_name()
 
     def update_file(self):
         file.update()
@@ -448,6 +459,26 @@ class window1(QWidget):
         else:
             self.loc = None
         self.update_ready_state()
+
+    def move_loc_callback(self):
+        txt = self.ui.lineEdit_move_to_loc.text()
+        if txt:
+            self.loc_move_to = txt
+        else:
+            self.loc_move_to = None
+        self.update_move_button_name()
+    def sel_move(self):
+        self.ui.lineEdit_move_to_loc.setText(self.ui.lineEdit_move_to_loc.text().replace('$LC', ''))
+        self.ui.lineEdit_move_to_loc.selectAll()
+
+    def update_move_button_name(self):
+        if self.loc and self.loc_move_to:
+            self.ui.pushButton_move_location.setEnabled(True)
+            self.ui.pushButton_move_location.setText(f'Переместить {self.loc} в --->')
+        else:
+            self.ui.pushButton_move_location.setEnabled(False)
+            self.ui.pushButton_move_location.setText('Переместить')
+
 
     def loc_callback(self):
         r_id = self.ui.loc_group.checkedId()

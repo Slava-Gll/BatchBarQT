@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>594</width>
-    <height>590</height>
+    <width>587</width>
+    <height>756</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -28,7 +28,7 @@
      <x>0</x>
      <y>0</y>
      <width>591</width>
-     <height>591</height>
+     <height>721</height>
     </rect>
    </property>
    <property name="currentIndex">
@@ -166,7 +166,7 @@
      <property name="geometry">
       <rect>
        <x>10</x>
-       <y>410</y>
+       <y>370</y>
        <width>241</width>
        <height>151</height>
       </rect>
@@ -264,7 +264,7 @@
        <x>10</x>
        <y>0</y>
        <width>269</width>
-       <height>392</height>
+       <height>371</height>
       </rect>
      </property>
      <layout class="QVBoxLayout" name="verticalLayout_4">
@@ -417,71 +417,10 @@
           </widget>
          </item>
          <item>
-          <widget class="QWidget" name="danger_group" native="true">
-           <layout class="QHBoxLayout" name="horizontalLayout_dangerous">
-            <item>
-             <widget class="QPushButton" name="pushButton_clear_location">
-              <property name="enabled">
-               <bool>true</bool>
-              </property>
-              <property name="palette">
-               <palette>
-                <active>
-                 <colorrole role="ButtonText">
-                  <brush brushstyle="SolidPattern">
-                   <color alpha="255">
-                    <red>255</red>
-                    <green>0</green>
-                    <blue>0</blue>
-                   </color>
-                  </brush>
-                 </colorrole>
-                </active>
-                <inactive>
-                 <colorrole role="ButtonText">
-                  <brush brushstyle="SolidPattern">
-                   <color alpha="255">
-                    <red>255</red>
-                    <green>0</green>
-                    <blue>0</blue>
-                   </color>
-                  </brush>
-                 </colorrole>
-                </inactive>
-                <disabled/>
-               </palette>
-              </property>
-              <property name="text">
-               <string>Переметить в</string>
-              </property>
-              <property name="checkable">
-               <bool>false</bool>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QLabel" name="label_2">
-              <property name="font">
-               <font>
-                <pointsize>12</pointsize>
-               </font>
-              </property>
-              <property name="text">
-               <string>:</string>
-              </property>
-              <property name="textFormat">
-               <enum>Qt::PlainText</enum>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QLineEdit" name="lineEdit_move_to_loc">
-              <property name="text">
-               <string>LOST</string>
-              </property>
-             </widget>
-            </item>
-           </layout>
+          <widget class="QPushButton" name="pushButton_move_sobrano">
+           <property name="text">
+            <string>переместить SOBRANO в STANOK</string>
+           </property>
           </widget>
          </item>
         </layout>
@@ -501,6 +440,65 @@
      <property name="text">
       <string>Опасные функции</string>
      </property>
+    </widget>
+    <widget class="QWidget" name="danger_group" native="true">
+     <property name="geometry">
+      <rect>
+       <x>0</x>
+       <y>530</y>
+       <width>451</width>
+       <height>42</height>
+      </rect>
+     </property>
+     <layout class="QHBoxLayout" name="horizontalLayout_5">
+      <item>
+       <widget class="QPushButton" name="pushButton_move_location">
+        <property name="enabled">
+         <bool>true</bool>
+        </property>
+        <property name="palette">
+         <palette>
+          <active>
+           <colorrole role="ButtonText">
+            <brush brushstyle="SolidPattern">
+             <color alpha="255">
+              <red>255</red>
+              <green>0</green>
+              <blue>0</blue>
+             </color>
+            </brush>
+           </colorrole>
+          </active>
+          <inactive>
+           <colorrole role="ButtonText">
+            <brush brushstyle="SolidPattern">
+             <color alpha="255">
+              <red>255</red>
+              <green>0</green>
+              <blue>0</blue>
+             </color>
+            </brush>
+           </colorrole>
+          </inactive>
+          <disabled/>
+         </palette>
+        </property>
+        <property name="text">
+         <string>Перемеcтить в</string>
+        </property>
+        <property name="checkable">
+         <bool>false</bool>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QLineEdit" name="lineEdit_move_to_loc">
+        <property name="text">
+         <string/>
+        </property>
+       </widget>
+      </item>
+     </layout>
     </widget>
    </widget>
    <widget class="QWidget" name="tab_debug">

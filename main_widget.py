@@ -25,7 +25,7 @@ class Ui_Form1(object):
     def setupUi(self, Form1):
         if not Form1.objectName():
             Form1.setObjectName(u"Form1")
-        Form1.resize(594, 590)
+        Form1.resize(587, 756)
         sizePolicy = QSizePolicy(QSizePolicy.Expanding, QSizePolicy.Preferred)
         sizePolicy.setHorizontalStretch(100)
         sizePolicy.setVerticalStretch(0)
@@ -34,7 +34,7 @@ class Ui_Form1(object):
         self.tabWidget = QTabWidget(Form1)
         self.tabWidget.setObjectName(u"tabWidget")
         self.tabWidget.setEnabled(True)
-        self.tabWidget.setGeometry(QRect(0, 0, 591, 591))
+        self.tabWidget.setGeometry(QRect(0, 0, 591, 721))
         self.tab_scan = QWidget()
         self.tab_scan.setObjectName(u"tab_scan")
         self.layoutWidget = QWidget(self.tab_scan)
@@ -95,7 +95,7 @@ class Ui_Form1(object):
         self.textEdit_file.setReadOnly(True)
         self.layoutWidget1 = QWidget(self.tab_assign)
         self.layoutWidget1.setObjectName(u"layoutWidget1")
-        self.layoutWidget1.setGeometry(QRect(10, 410, 241, 151))
+        self.layoutWidget1.setGeometry(QRect(10, 370, 241, 151))
         self.verticalLayout_3 = QVBoxLayout(self.layoutWidget1)
         self.verticalLayout_3.setObjectName(u"verticalLayout_3")
         self.verticalLayout_3.setContentsMargins(0, 0, 0, 0)
@@ -165,7 +165,7 @@ class Ui_Form1(object):
 
         self.layoutWidget2 = QWidget(self.tab_assign)
         self.layoutWidget2.setObjectName(u"layoutWidget2")
-        self.layoutWidget2.setGeometry(QRect(10, 0, 269, 392))
+        self.layoutWidget2.setGeometry(QRect(10, 0, 269, 371))
         self.verticalLayout_4 = QVBoxLayout(self.layoutWidget2)
         self.verticalLayout_4.setObjectName(u"verticalLayout_4")
         self.verticalLayout_4.setContentsMargins(0, 0, 0, 0)
@@ -258,37 +258,10 @@ class Ui_Form1(object):
 
         self.verticalLayout_6.addWidget(self.pushButton_show_loc)
 
-        self.danger_group = QWidget(self.groupBox_loc)
-        self.danger_group.setObjectName(u"danger_group")
-        self.horizontalLayout_dangerous = QHBoxLayout(self.danger_group)
-        self.horizontalLayout_dangerous.setObjectName(u"horizontalLayout_dangerous")
-        self.pushButton_clear_location = QPushButton(self.danger_group)
-        self.pushButton_clear_location.setObjectName(u"pushButton_clear_location")
-        self.pushButton_clear_location.setEnabled(True)
-        palette = QPalette()
-        brush = QBrush(QColor(255, 0, 0, 255))
-        brush.setStyle(Qt.SolidPattern)
-        palette.setBrush(QPalette.Active, QPalette.ButtonText, brush)
-        palette.setBrush(QPalette.Inactive, QPalette.ButtonText, brush)
-        self.pushButton_clear_location.setPalette(palette)
-        self.pushButton_clear_location.setCheckable(False)
+        self.pushButton_move_sobrano = QPushButton(self.groupBox_loc)
+        self.pushButton_move_sobrano.setObjectName(u"pushButton_move_sobrano")
 
-        self.horizontalLayout_dangerous.addWidget(self.pushButton_clear_location)
-
-        self.label_2 = QLabel(self.danger_group)
-        self.label_2.setObjectName(u"label_2")
-        self.label_2.setFont(font1)
-        self.label_2.setTextFormat(Qt.PlainText)
-
-        self.horizontalLayout_dangerous.addWidget(self.label_2)
-
-        self.lineEdit_move_to_loc = QLineEdit(self.danger_group)
-        self.lineEdit_move_to_loc.setObjectName(u"lineEdit_move_to_loc")
-
-        self.horizontalLayout_dangerous.addWidget(self.lineEdit_move_to_loc)
-
-
-        self.verticalLayout_6.addWidget(self.danger_group)
+        self.verticalLayout_6.addWidget(self.pushButton_move_sobrano)
 
 
         self.verticalLayout_4.addWidget(self.groupBox_loc)
@@ -296,6 +269,29 @@ class Ui_Form1(object):
         self.checkBox_dangerous = QCheckBox(self.tab_assign)
         self.checkBox_dangerous.setObjectName(u"checkBox_dangerous")
         self.checkBox_dangerous.setGeometry(QRect(450, 540, 131, 20))
+        self.danger_group = QWidget(self.tab_assign)
+        self.danger_group.setObjectName(u"danger_group")
+        self.danger_group.setGeometry(QRect(0, 530, 451, 42))
+        self.horizontalLayout_5 = QHBoxLayout(self.danger_group)
+        self.horizontalLayout_5.setObjectName(u"horizontalLayout_5")
+        self.pushButton_move_location = QPushButton(self.danger_group)
+        self.pushButton_move_location.setObjectName(u"pushButton_move_location")
+        self.pushButton_move_location.setEnabled(True)
+        palette = QPalette()
+        brush = QBrush(QColor(255, 0, 0, 255))
+        brush.setStyle(Qt.SolidPattern)
+        palette.setBrush(QPalette.Active, QPalette.ButtonText, brush)
+        palette.setBrush(QPalette.Inactive, QPalette.ButtonText, brush)
+        self.pushButton_move_location.setPalette(palette)
+        self.pushButton_move_location.setCheckable(False)
+
+        self.horizontalLayout_5.addWidget(self.pushButton_move_location)
+
+        self.lineEdit_move_to_loc = QLineEdit(self.danger_group)
+        self.lineEdit_move_to_loc.setObjectName(u"lineEdit_move_to_loc")
+
+        self.horizontalLayout_5.addWidget(self.lineEdit_move_to_loc)
+
         self.tabWidget.addTab(self.tab_assign, "")
         self.tab_debug = QWidget()
         self.tab_debug.setObjectName(u"tab_debug")
@@ -359,10 +355,10 @@ class Ui_Form1(object):
         self.radioButton_loc_other.setText(QCoreApplication.translate("Form1", u"\u0414\u0440\u0443\u0433\u0430\u044f \u043b\u043e\u043a\u0430\u0446\u0438\u044f", None))
         self.lineEdit_custom_loc.setPlaceholderText(QCoreApplication.translate("Form1", u"\u041b\u043e\u043a\u0430\u0446\u0438\u044f", None))
         self.pushButton_show_loc.setText(QCoreApplication.translate("Form1", u"\u0412\u044b\u0432\u0435\u0441\u0442\u0438 \u0441\u043e\u0434\u0435\u0440\u0436\u0438\u043c\u043e\u0435 \u043b\u043e\u043a\u0430\u0446\u0438\u0438", None))
-        self.pushButton_clear_location.setText(QCoreApplication.translate("Form1", u"\u041f\u0435\u0440\u0435\u043c\u0435\u0442\u0438\u0442\u044c \u0432", None))
-        self.label_2.setText(QCoreApplication.translate("Form1", u":", None))
-        self.lineEdit_move_to_loc.setText(QCoreApplication.translate("Form1", u"LOST", None))
+        self.pushButton_move_sobrano.setText(QCoreApplication.translate("Form1", u"\u043f\u0435\u0440\u0435\u043c\u0435\u0441\u0442\u0438\u0442\u044c SOBRANO \u0432 STANOK", None))
         self.checkBox_dangerous.setText(QCoreApplication.translate("Form1", u"\u041e\u043f\u0430\u0441\u043d\u044b\u0435 \u0444\u0443\u043d\u043a\u0446\u0438\u0438", None))
+        self.pushButton_move_location.setText(QCoreApplication.translate("Form1", u"\u041f\u0435\u0440\u0435\u043c\u0435c\u0442\u0438\u0442\u044c \u0432", None))
+        self.lineEdit_move_to_loc.setText("")
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_assign), QCoreApplication.translate("Form1", u"\u041f\u0440\u0438\u0441\u0432\u043e\u0435\u043d\u0438\u0435", None))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_debug), QCoreApplication.translate("Form1", u"Debug", None))
         self.pushButton_easter.setText(QCoreApplication.translate("Form1", u"\u041e\u0419, \u0437\u0434\u0440\u0430\u0432\u0441\u0442\u0432\u0443\u0439\u0442\u0435", None))
