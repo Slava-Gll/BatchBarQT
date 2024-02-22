@@ -44,7 +44,8 @@ SQL_QUERY_CARRIER_COUNT = """SELECT Quantity
                              WHERE CarrierId=?;"""
 
 CONF_DICT = {
-    "MDB_PATH": r"",
+    "MDB_PATH": "",
+    "HOST": "",
     "SMB_USERNAME": "",
     "SMB_PASSWORD": "",
     "USER": "",
@@ -141,7 +142,7 @@ class barcode_file():
 
     def connect_DB(self):
         try:
-            register_session("smtdev", username=config.smb_username, password=config.smb_password)
+            register_session(config.host, username=config.smb_username, password=config.smb_password)
             driver = '{Microsoft Access Driver (*.mdb, *.accdb)}'
             conn = pyodbc.connect(f'Driver={driver};DBQ={config.mdb_path}')
             cur = conn.cursor()
@@ -239,6 +240,7 @@ class create_config():
             self.config = json.load(openfile)
         self.config['USER'] = f'{self.config["USER"]} BB'
         self.mdb_path = self.config["MDB_PATH"]
+        self.host = self.config["HOST"]
         self.smb_username = self.config['SMB_USERNAME']
         self.smb_password = self.config['SMB_PASSWORD']
         self.user = self.config['USER']
